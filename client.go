@@ -126,6 +126,7 @@ func (c *Client) DialContext(ctx context.Context, address string) (conn *Conn, e
 
 	conn = new(Conn)
 	if useTLS {
+		d := net.Dialer{Timeout: c.getTimeoutForRequest(c.dialTimeout())}
 		network = strings.TrimSuffix(network, "-tls")
 
 		tlsDialer := tls.Dialer{
